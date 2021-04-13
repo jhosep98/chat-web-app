@@ -33,6 +33,9 @@ export class UsersService {
       throw new BadRequestException('User already registered with email');
     }
     const newUser = this.userRepository.create(createUserDto);
-    return await this.userRepository.save(newUser);
+    const user = await this.userRepository.save(newUser);
+
+    delete user.password;
+    return user;
   }
 }
