@@ -1,6 +1,7 @@
 /**
  * Environment Variables
  */
+export const JWT_SECRET_TOKEN = 'JWT_SECRET_TOKEN';
 export const DATABASE_HOST = 'DATABASE_HOST';
 export const DATABASE_PORT = 'DATABASE_PORT';
 export const DATABASE_USERNAME = 'DATABASE_USERNAME';

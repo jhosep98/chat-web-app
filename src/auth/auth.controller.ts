@@ -1,18 +1,34 @@
-import { Controller, Get, Post, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  HttpStatus,
+  Post,
+  Res,
+  UseGuards,
+} from '@nestjs/common';
+import { Response } from 'express';
 import { User } from 'src/decorators';
 import { UserEntity } from 'src/users/entity/user.entity';
-import { LocalAuthGuard } from './guards/local-auth.guard';
+import { AuthService } from './auth.service';
+import { LocalAuthGuard, JwtAuthGuard } from './guards';
 
 @Controller('auth')
 export class AuthController {
+  constructor(private readonly authService: AuthService) {}
+
   @UseGuards(LocalAuthGuard)
   @Post('login')
-  login(@User() user: UserEntity) {
-    return user;
+  async login(@User() user: UserEntity, @Res() res: Response) {
+    const data = await this.authService.login(user);
+    res.status(HttpStatus.OK).json({
+      message: 'Successful login',
+      data,
+    });
   }
 
-  @Get('profile')
+  @UseGuards(JwtAuthGuard)
+  @Get('messages')
   profile() {
-    return 'estos son tus datos';
+    return 'Message list....';
   }
 }
