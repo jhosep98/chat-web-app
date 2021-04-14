@@ -1,15 +1,18 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   HttpStatus,
   Param,
   Post,
+  Put,
   Res,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { Response } from 'express';
 import { CreateUserDto } from './dto/create-user.dto';
+import { EditUserDto } from './dto/edit-user.dto';
 
 @Controller('users')
 export class UsersController {
@@ -33,6 +36,28 @@ export class UsersController {
     res.status(HttpStatus.CREATED).json({
       message: 'User created successfully',
       user: newUser,
+    });
+  }
+
+  @Put(':id')
+  async updateUser(
+    @Body() userDto: EditUserDto,
+    @Res() res: Response,
+    @Param() id,
+  ) {
+    const updatedUser = await this.userService.editOne(id, userDto);
+    res.status(HttpStatus.OK).json({
+      message: 'User updated successfully',
+      user: updatedUser,
+    });
+  }
+
+  @Delete(':id')
+  async deleteUser(@Param() id, @Res() res: Response) {
+    const deletedUser = await this.userService.deleteOne(id);
+    res.status(HttpStatus.OK).json({
+      message: 'User deleted successfully',
+      user: deletedUser,
     });
   }
 }
