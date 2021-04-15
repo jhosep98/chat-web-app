@@ -8,23 +8,27 @@ import {
   Post,
   Put,
   Res,
+  UseGuards,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { Response } from 'express';
 import { CreateUserDto } from './dto/create-user.dto';
 import { EditUserDto } from './dto/edit-user.dto';
 import { USER_CREATED, USER_DELETED, USER_UPDATED } from 'src/config/constants';
+import { JwtAuthGuard } from 'src/auth/guards';
 
 @Controller('users')
 export class UsersController {
   constructor(private readonly userService: UsersService) {}
 
+  @UseGuards(JwtAuthGuard)
   @Get()
   async getAllUsers(@Res() res: Response) {
     const users = await this.userService.getAll();
     res.status(HttpStatus.OK).json({ data: users });
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get(':id')
   async getOneUser(@Param('id') id: number, @Res() res: Response) {
     const user = await this.userService.getOne(id);
