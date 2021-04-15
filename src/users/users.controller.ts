@@ -13,6 +13,7 @@ import { UsersService } from './users.service';
 import { Response } from 'express';
 import { CreateUserDto } from './dto/create-user.dto';
 import { EditUserDto } from './dto/edit-user.dto';
+import { USER_CREATED, USER_DELETED, USER_UPDATED } from 'src/config/constants';
 
 @Controller('users')
 export class UsersController {
@@ -34,7 +35,7 @@ export class UsersController {
   async createUser(@Body() userDto: CreateUserDto, @Res() res: Response) {
     const newUser = await this.userService.createOne(userDto);
     res.status(HttpStatus.CREATED).json({
-      message: 'User created successfully',
+      message: USER_CREATED,
       user: newUser,
     });
   }
@@ -43,20 +44,20 @@ export class UsersController {
   async updateUser(
     @Body() userDto: EditUserDto,
     @Res() res: Response,
-    @Param() id,
+    @Param() id: number,
   ) {
     const updatedUser = await this.userService.editOne(id, userDto);
     res.status(HttpStatus.OK).json({
-      message: 'User updated successfully',
+      message: USER_UPDATED,
       user: updatedUser,
     });
   }
 
   @Delete(':id')
-  async deleteUser(@Param() id, @Res() res: Response) {
+  async deleteUser(@Param() id: number, @Res() res: Response) {
     const deletedUser = await this.userService.deleteOne(id);
     res.status(HttpStatus.OK).json({
-      message: 'User deleted successfully',
+      message: USER_DELETED,
       user: deletedUser,
     });
   }

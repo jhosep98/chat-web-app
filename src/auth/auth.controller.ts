@@ -7,6 +7,7 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { Response } from 'express';
+import { SUCCESSFUL_LOGIN } from 'src/config/constants';
 import { User } from 'src/decorators';
 import { UserEntity } from 'src/users/entity/user.entity';
 import { AuthService } from './auth.service';
@@ -21,7 +22,7 @@ export class AuthController {
   async login(@User() user: UserEntity, @Res() res: Response) {
     const data = await this.authService.login(user);
     res.status(HttpStatus.OK).json({
-      message: 'Successful login',
+      message: SUCCESSFUL_LOGIN,
       data,
     });
   }

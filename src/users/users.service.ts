@@ -4,6 +4,12 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import {
+  USER,
+  USER_ALREADY_REGISTERED,
+  USER_NOT_EXISTS,
+  USER_PASSWORD,
+} from 'src/config/constants';
 import { Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { EditUserDto } from './dto/edit-user.dto';
@@ -27,7 +33,7 @@ export class UsersService {
 
   async getOne(id: number) {
     const user = await this.userRepository.findOne(id);
-    if (!user) throw new NotFoundException('User does not exists');
+    if (!user) throw new NotFoundException(USER_NOT_EXISTS);
     return user;
   }
 
@@ -36,7 +42,7 @@ export class UsersService {
       email: createUserDto.email,
     });
     if (userExist) {
-      throw new BadRequestException('User already registered with email');
+      throw new BadRequestException(USER_ALREADY_REGISTERED);
     }
     const newUser = this.userRepository.create(createUserDto);
     const user = await this.userRepository.save(newUser);
@@ -61,9 +67,9 @@ export class UsersService {
 
   async findByEmail(data: UserFindOne) {
     return await this.userRepository
-      .createQueryBuilder('user')
+      .createQueryBuilder(USER)
       .where(data)
-      .addSelect('user.password')
+      .addSelect(USER_PASSWORD)
       .getOne();
   }
 }

@@ -7,3 +7,28 @@ export const DATABASE_PORT = 'DATABASE_PORT';
 export const DATABASE_USERNAME = 'DATABASE_USERNAME';
 export const DATABASE_PASSWORD = 'DATABASE_PASSWORD';
 export const DATABASE_DATABASE = 'DATABASE_DATABASE';
+
+/**
+ * User Controller
+ */
+export const USER_CREATED = 'User created successfully';
+export const USER_UPDATED = 'User updated successfully';
+export const USER_DELETED = 'User deleted successfully';
+
+/**
+ * User Service
+ */
+export const USER_NOT_EXISTS = 'User does not exists';
+export const USER_ALREADY_REGISTERED = 'User already registered with email';
+export const USER = 'user';
+export const USER_PASSWORD = 'user.password';
+
+/**
+ * Auth Controller
+ */
+export const SUCCESSFUL_LOGIN = 'Successful login';
+
+/**
+ * Local Strategy
+ */
+export const LOGIN_USER_NOT_MATCH = 'Login user or password does not match';
