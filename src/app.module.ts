@@ -10,6 +10,7 @@ import {
   DATABASE_USERNAME,
 } from './config/constants';
 import { AuthModule } from './auth/auth.module';
+import { ConversationsModule } from './conversations/conversations.module';
 
 @Module({
   imports: [
@@ -32,6 +33,7 @@ import { AuthModule } from './auth/auth.module';
     }),
     UsersModule,
     AuthModule,
+    ConversationsModule,
   ],
 })
 export class AppModule {}

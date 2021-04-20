@@ -4,14 +4,16 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { hash } from 'bcrypt';
+import { MessagesEntity } from '../../conversations/entity/message.entity';
 
 @Entity('users')
 export class UserEntity {
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryGeneratedColumn({ name: 'users_id' })
+  userId: number;
 
   @Column({ type: 'varchar', length: 255, nullable: false })
   name: string;
@@ -33,4 +35,7 @@ export class UserEntity {
     }
     this.password = await hash(this.password, 10);
   }
+
+  @OneToMany(() => MessagesEntity, (message) => message.user)
+  messages: MessagesEntity[];
 }
