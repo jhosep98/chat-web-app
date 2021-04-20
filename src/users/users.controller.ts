@@ -44,11 +44,12 @@ export class UsersController {
     });
   }
 
+  @UseGuards(JwtAuthGuard)
   @Put(':id')
   async updateUser(
     @Body() userDto: EditUserDto,
     @Res() res: Response,
-    @Param() id: number,
+    @Param('id') id: number,
   ) {
     const updatedUser = await this.userService.editOne(id, userDto);
     res.status(HttpStatus.OK).json({
@@ -57,8 +58,9 @@ export class UsersController {
     });
   }
 
+  @UseGuards(JwtAuthGuard)
   @Delete(':id')
-  async deleteUser(@Param() id: number, @Res() res: Response) {
+  async deleteUser(@Param('id') id: number, @Res() res: Response) {
     const deletedUser = await this.userService.deleteOne(id);
     res.status(HttpStatus.OK).json({
       message: USER_DELETED,
