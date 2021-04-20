@@ -24,6 +24,9 @@ export class UserEntity {
   @Column({ type: 'varchar', length: 128, nullable: false, select: false })
   password: string;
 
+  @Column({ type: 'simple-array' })
+  roles: string[];
+
   @CreateDateColumn({ name: 'created_at', type: 'timestamp' })
   createdAt: Date;
 

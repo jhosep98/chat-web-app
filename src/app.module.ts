@@ -1,7 +1,8 @@
 import { Module } from '@nestjs/common';
-import { UsersModule } from './users/users.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { AccessControlModule } from 'nest-access-control';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+
 import {
   DATABASE_DATABASE,
   DATABASE_HOST,
@@ -9,7 +10,9 @@ import {
   DATABASE_PORT,
   DATABASE_USERNAME,
 } from './config/constants';
+import { roles } from './app.roles';
 import { AuthModule } from './auth/auth.module';
+import { UsersModule } from './users/users.module';
 import { ConversationsModule } from './conversations/conversations.module';
 
 @Module({
@@ -31,6 +34,7 @@ import { ConversationsModule } from './conversations/conversations.module';
       isGlobal: true,
       envFilePath: '.env',
     }),
+    AccessControlModule.forRoles(roles),
     UsersModule,
     AuthModule,
     ConversationsModule,
