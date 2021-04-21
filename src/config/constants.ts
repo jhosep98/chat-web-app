@@ -21,7 +21,7 @@ export const USER_DELETED = 'User deleted successfully';
 /**
  * User Service
  */
-export const USER_NOT_EXISTS = 'User does not exists';
+export const USER_NOT_EXISTS = 'User does not exists or unauthorized';
 export const USER_ALREADY_REGISTERED = 'User already registered with email';
 export const USER = 'user';
 export const USER_PASSWORD = 'user.password';
