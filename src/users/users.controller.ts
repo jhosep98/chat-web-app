@@ -22,9 +22,10 @@ import {
   RolesBuilder,
   UseRoles,
 } from 'nest-access-control';
-import { AppResource } from 'src/app.roles';
+import { AppResource, AppRoles } from 'src/app.roles';
 import { User } from 'src/decorators';
 import { UserEntity } from './entity/user.entity';
+import { UserRegistrationDto } from './dto/user-registration.dto';
 
 @Controller('users')
 export class UsersController {
@@ -39,6 +40,21 @@ export class UsersController {
   async getAllUsers(@Res() res: Response) {
     const users = await this.userService.getAll();
     res.status(HttpStatus.OK).json({ data: users });
+  }
+
+  @Post('register')
+  async publicRegistration(
+    @Body() userDto: UserRegistrationDto,
+    @Res() res: Response,
+  ) {
+    const data = await this.userService.createOne({
+      ...userDto,
+      roles: [AppRoles.CONTACT],
+    });
+    res.status(HttpStatus.CREATED).json({
+      message: 'User registered',
+      data,
+    });
   }
 
   @UseGuards(JwtAuthGuard)
