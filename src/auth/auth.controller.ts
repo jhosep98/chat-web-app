@@ -1,17 +1,10 @@
-import {
-  Controller,
-  Get,
-  HttpStatus,
-  Post,
-  Res,
-  UseGuards,
-} from '@nestjs/common';
+import { Controller, HttpStatus, Post, Res, UseGuards } from '@nestjs/common';
 import { Response } from 'express';
 import { SUCCESSFUL_LOGIN } from 'src/config/constants';
 import { User } from 'src/decorators';
 import { UserEntity } from 'src/users/entity/user.entity';
 import { AuthService } from './auth.service';
-import { LocalAuthGuard, JwtAuthGuard } from './guards';
+import { LocalAuthGuard } from './guards';
 
 @Controller('auth')
 export class AuthController {
@@ -25,11 +18,5 @@ export class AuthController {
       message: SUCCESSFUL_LOGIN,
       data,
     });
-  }
-
-  @UseGuards(JwtAuthGuard)
-  @Get('messages')
-  profile() {
-    return 'Message list....';
   }
 }
