@@ -4,9 +4,12 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { hash } from 'bcrypt';
+import { ConversationEntity } from 'src/conversations/entity/conversation.entity';
 
 @Entity('user')
 export class UserEntity {
@@ -27,6 +30,13 @@ export class UserEntity {
 
   @CreateDateColumn({ name: 'created_at', type: 'timestamp' })
   createdAt: Date;
+
+  @OneToMany(
+    (type) => ConversationEntity,
+    (conversation) => conversation.sender,
+  )
+  @JoinColumn({ name: 'sender_id' })
+  startedConversations: ConversationEntity[];
 
   @BeforeInsert()
   @BeforeUpdate()
