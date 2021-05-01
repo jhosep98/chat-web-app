@@ -35,3 +35,8 @@ export const SUCCESSFUL_LOGIN = 'Successful login';
  * Local Strategy
  */
 export const LOGIN_USER_NOT_MATCH = 'Login user or password does not match';
+
+/**
+ * Conversation Controller
+ */
+export const CREATED_CONVERSATION = 'Conversation created successfully';

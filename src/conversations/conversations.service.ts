@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CreateConversationDto } from 'src/messages/dto/create-conversation.dto';
 import { Repository } from 'typeorm';
+import { CreateConversationDto } from './dto/create-conversation.dto';
 import { ConversationEntity } from './entity/conversation.entity';
 
 @Injectable()
@@ -10,6 +10,10 @@ export class ConversationsService {
     @InjectRepository(ConversationEntity)
     private readonly conversationRepository: Repository<ConversationEntity>,
   ) {}
+  async findAll() {
+    const conversations = await this.conversationRepository.find();
+    return conversations;
+  }
 
   async start(conversationDto: CreateConversationDto) {
     const newConversation = this.conversationRepository.create(conversationDto);
