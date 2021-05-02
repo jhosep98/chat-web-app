@@ -21,7 +21,15 @@ export class ConversationEntity {
   @JoinColumn({ name: 'sender_id' })
   sender: UserEntity;
 
+  @ManyToOne((type) => UserEntity, (user) => user.targetConversations)
+  @JoinColumn({ name: 'target_id' })
+  target: UserEntity;
+
   @OneToMany((type) => Message, (message) => message.conversation)
   @JoinColumn({ name: 'messages' })
   messages: Message[];
+
+  @ManyToOne((type) => UserEntity, (user) => user.conversationId)
+  @JoinColumn({ name: 'user_id' })
+  userId: UserEntity;
 }

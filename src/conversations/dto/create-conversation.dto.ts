@@ -18,6 +18,10 @@ export class CreateConversationDto {
   @IsInt()
   sender: UserEntity;
 
+  @IsNotEmpty()
+  @IsInt()
+  target: UserEntity;
+
   @IsArray()
   messages: MessageEntity[];
 }

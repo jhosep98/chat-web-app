@@ -33,10 +33,24 @@ export class UserEntity {
 
   @OneToMany(
     (type) => ConversationEntity,
+    (conversation) => conversation.userId,
+  )
+  @JoinColumn({ name: 'user_id' })
+  conversationId: ConversationEntity[];
+
+  @OneToMany(
+    (type) => ConversationEntity,
     (conversation) => conversation.sender,
   )
   @JoinColumn({ name: 'sender_id' })
   startedConversations: ConversationEntity[];
+
+  @OneToMany(
+    (type) => ConversationEntity,
+    (conversation) => conversation.target,
+  )
+  @JoinColumn({ name: 'target_id' })
+  targetConversations: ConversationEntity[];
 
   @BeforeInsert()
   @BeforeUpdate()
