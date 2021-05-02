@@ -40,3 +40,8 @@ export const LOGIN_USER_NOT_MATCH = 'Login user or password does not match';
  * Conversation Controller
  */
 export const CREATED_CONVERSATION = 'Conversation created successfully';
+
+/**
+ * Message Controller
+ */
+export const CREATED_MESSAGE = 'Message created successfully';
