@@ -6,6 +6,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { ConversationEntity as Conversation } from 'src/conversations/entity/conversation.entity';
+import { UserEntity } from 'src/users/entity/user.entity';
 
 @Entity('message')
 export class MessageEntity {
@@ -18,4 +19,8 @@ export class MessageEntity {
   @ManyToOne((type) => Conversation, (conversation) => conversation.messages)
   @JoinColumn({ name: 'conversation_id' })
   conversation: Conversation;
+
+  @ManyToOne((type) => UserEntity, (user) => user)
+  @JoinColumn({ name: 'user_id' })
+  user: UserEntity;
 }

@@ -10,6 +10,7 @@ import {
 } from 'typeorm';
 import { hash } from 'bcrypt';
 import { ConversationEntity } from 'src/conversations/entity/conversation.entity';
+import { MessageEntity } from 'src/messages/entity/message.entity';
 
 @Entity('user')
 export class UserEntity {
@@ -51,6 +52,10 @@ export class UserEntity {
   )
   @JoinColumn({ name: 'target_id' })
   targetConversations: ConversationEntity[];
+
+  @OneToMany((type) => MessageEntity, (message) => message.user)
+  @JoinColumn({ name: 'conversation_id' })
+  messages: MessageEntity[];
 
   @BeforeInsert()
   @BeforeUpdate()
