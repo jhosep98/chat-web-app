@@ -24,4 +24,8 @@ export class CreateConversationDto {
 
   @IsArray()
   messages: MessageEntity[];
+
+  @IsNotEmpty()
+  @IsInt()
+  userId: UserEntity;
 }

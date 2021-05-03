@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { UserEntity } from 'src/users/entity/user.entity';
 import { Repository } from 'typeorm';
 import { CreateConversationDto } from './dto/create-conversation.dto';
 import { ConversationEntity } from './entity/conversation.entity';
@@ -10,8 +11,13 @@ export class ConversationsService {
     @InjectRepository(ConversationEntity)
     private readonly conversationRepository: Repository<ConversationEntity>,
   ) {}
-  async findAll() {
-    const conversations = await this.conversationRepository.find();
+
+  async findAll(user: UserEntity) {
+    const conversations = await this.conversationRepository.find({
+      where: {
+        userId: user.userId,
+      },
+    });
     return conversations;
   }
 
