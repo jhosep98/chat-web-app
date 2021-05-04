@@ -19,6 +19,5 @@ export class CreateMessageDto {
   conversation: ConversationEntity;
 
   @IsNotEmpty()
-  @IsArray()
   user: UserEntity;
 }

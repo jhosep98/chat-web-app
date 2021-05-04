@@ -25,11 +25,11 @@ export class ConversationEntity {
   @JoinColumn({ name: 'target_id' })
   target: UserEntity;
 
-  @OneToMany((type) => Message, (message) => message.conversation)
-  @JoinColumn({ name: 'messages' })
-  messages: Message[];
-
   @ManyToOne((type) => UserEntity, (user) => user.conversationId)
   @JoinColumn({ name: 'user_id' })
   userId: UserEntity;
+
+  @OneToMany((type) => Message, (message) => message.conversation)
+  @JoinColumn({ name: 'conversation_id' })
+  messages: Message[];
 }

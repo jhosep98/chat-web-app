@@ -11,8 +11,12 @@ export class MessagesService {
     private readonly messageRepository: Repository<MessageEntity>,
   ) {}
 
-  async findAll() {
-    const messages = await this.messageRepository.find();
+  async findAll(conversationId: number) {
+    const messages = await this.messageRepository.find({
+      where: {
+        conversation: conversationId,
+      },
+    });
     return messages;
   }
 

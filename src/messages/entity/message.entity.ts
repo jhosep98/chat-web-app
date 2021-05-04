@@ -20,7 +20,7 @@ export class MessageEntity {
   @JoinColumn({ name: 'conversation_id' })
   conversation: Conversation;
 
-  @ManyToOne((type) => UserEntity, (user) => user)
+  @ManyToOne((type) => UserEntity, (user) => user.messages)
   @JoinColumn({ name: 'user_id' })
   user: UserEntity;
 }

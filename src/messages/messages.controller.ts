@@ -1,4 +1,12 @@
-import { Body, Controller, Get, HttpStatus, Post, Res } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  HttpStatus,
+  Param,
+  Post,
+  Res,
+} from '@nestjs/common';
 import { Response } from 'express';
 import { CREATED_MESSAGE } from 'src/config/constants';
 import { CreateMessageDto } from './dto/create-message.dto';
@@ -8,9 +16,9 @@ import { MessagesService } from './messages.service';
 export class MessagesController {
   constructor(private readonly messagesService: MessagesService) {}
 
-  @Get()
-  async findAllMessages(@Res() res: Response) {
-    const messages = await this.messagesService.findAll();
+  @Get(':id')
+  async findAllMessages(@Res() res: Response, @Param('id') id: number) {
+    const messages = await this.messagesService.findAll(id);
     res.status(HttpStatus.OK).json({
       data: messages,
     });
